@@ -1,19 +1,21 @@
-package projeto_aulas;
 
-public class Aluno extends Fclt {
-
+public class Aluno extends Fclt{
+    
     private String nome;
-    private int numero;
+    private int id;
     private double nota;
+    private Conexao banco= new Conexao();
 
     public Aluno(String nome, int numero) {
         this.nome = nome;
-        this.numero = numero + 1;
+        this.id = numero;
     }
 
     public Aluno(String nome) {
         this.nome = nome;
-        this.numero = numero + 1;
+        banco.InsertAluno(nome);
+        this.id=banco.selectNumeroAluno(nome);
+        
     }
 
     public double getNota() {
@@ -32,16 +34,16 @@ public class Aluno extends Fclt {
         this.nome = nome;
     }
 
-    public int getNumero() {
-        return numero;
+    public int getId() {
+        return this.id;
     }
 
     public void setNumero(int numero) {
-        this.numero = numero;
+        this.id = numero;
     }
 
     public void apresentar() {
-        escreve("Nome do aluno " + this.nome + " numero do aluno " + this.numero);
+        escreve("Id do aluno "+this.id+" nome do aluno "+this.nome);
     }
 
     public void CalculaMedia(double t[]) {
