@@ -1,19 +1,35 @@
-package projeto_aulas;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Notas extends Fclt {
 
     private String prova;
+    private int id;
 
-    private Aluno[] alunos;
+
+    private ArrayList<Aluno> alunos = new ArrayList<>();
     private double[] valorNotas;
     Scanner sc = new Scanner(System.in);
+    private Conexao banco = new Conexao();
 
-    public Notas(String prova, int quantAlunos) {
-        this.alunos = new Aluno[quantAlunos];
+    public Notas(String prova) {
+        banco.InsertProva(prova);
         this.prova = prova;
+        this.id=banco.selectIDprova(prova);
+    }
 
+    public Notas(int id) {
+        this.prova = banco.selectNomeprova(id);
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getProva() {
@@ -24,65 +40,29 @@ public class Notas extends Fclt {
         this.prova = prova;
     }
 
-    public Aluno[] getAlunos() {
+    public ArrayList<Aluno> getAlunos() {
+        banco.ALunosProva(alunos, this.id);
         return alunos;
     }
 
-    public void setAlunos(Aluno[] alunos) {
-        this.alunos = alunos;
-    }
-
-    public void setAlunos(int pos, Aluno aluno) {
-        if (pos >= 0 && pos < this.alunos.length) {
-            this.alunos[pos] = aluno;
-        } else {
-            escreve("Posição inválida para adicionar aluno!");
-        }
-    }
 
     private void registraNotas() {
-        this.valorNotas = new double[alunos.length];
+        this.valorNotas = new double[alunos.size()];
         for (int i = 0; i < valorNotas.length; i++) {
-            valorNotas[i] = alunos[i].getNota();
+            valorNotas[i] = alunos.get(i).getNota();
+            banco.InsertNotas(this.id, alunos.get(i).getId(), valorNotas[i]);
         }
     }
 
     public void boletim() {
         registraNotas();
-        for (int i = 0; i < alunos.length; i++) {
-            escreve("Aluno " + alunos[i].getNome() + " Nota: " + valorNotas[i]);
-        }
+        banco.ListaNotas(this.id);
     }
 
-    /*
-    public void menu() {
-        escreve("==========MENU==========");
-        escreve("Calcular Media[1]");
-        escreve("Definir notas [2]");
-        escreve("Remover [2]");
-        escreve("Adicionar [3]");
-        escreve("Voltar [4]");
-        int resp = sc.nextInt();
-        switch (resp) {
-            case 1:
-                escreve("Quantidade atual de alunos: "
-                );
-                return;
-            case 2:
-                escreve("Informe a quantidade de alunos a ser removida:");
-                //a -= sc.nextInt();
-                return;
-            case 3:
-                escreve("Informe a quantidade de alunos a ser Adicionada:");
-                //a += sc.nextInt();
-                return;
-            case 4:
-                menu();
-                break;
-            default:
-                escreve("informe a numeração correnpondente!!");
-                return;
-        }
-
-    }*/
+    public void listarnotas() {
+        banco.ListaNotas(this.id);
+    }
+    public void VinculaAlunos(int aluno){
+        banco.vinculaAluno(aluno, this.id);
+    }
 }
