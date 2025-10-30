@@ -127,7 +127,7 @@ public class Conexao extends Fclt {
 
             int linhas = stmt.executeUpdate();
             if (linhas > 0) {
-                escreve("Aluno adicionado com sucesso!");
+                escreve("Aluno adicionado com sucesso!(InsertAluno)");
             } else {
                 escreve("Não foi possivel adicionar o aluno, verifique!");
             }
@@ -256,7 +256,7 @@ public class Conexao extends Fclt {
 
             int linhas = stmt.executeUpdate();
             if (linhas > 0) {
-                escreve("Nota adicionada com sucesso!");
+                escreve("Adicionando nota...");
             } else {
                 escreve("Não foi possivel incluir nota Verifique!");
             }
@@ -268,7 +268,7 @@ public class Conexao extends Fclt {
     }
 
     public void ALunosProva(List<Aluno> lista, int idProva) {
-        String sql = "select nome_aluno from notas\n"
+        String sql = "select id_aluno, nome_aluno from notas\n"
                 + "left join aluno on id_aluno=aluno_id\n"
                 + "left join provas on prova_id=id_prova\n"
                 + "where id_prova=?";
@@ -278,7 +278,8 @@ public class Conexao extends Fclt {
                 while (rs.next()) {
                     Aluno novoAluno = null;
                     String nome = rs.getString("nome_aluno");
-                    novoAluno = new Aluno(nome);
+                    int id = rs.getInt("id_aluno");
+                    novoAluno = new Aluno(nome, id);
                     lista.add(novoAluno);
                 }
 

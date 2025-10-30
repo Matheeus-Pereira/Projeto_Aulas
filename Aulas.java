@@ -147,7 +147,7 @@ public class Aulas extends Fclt {
     }
 
     public static void cadNota() {
-        escreve("Informe o id da prova que vai ter a nota");
+        escreve("Informe o id da prova que vai ter a nota:");
         banco.Listarprovas();
         int id_prova = sc.nextInt();//até aqui eu quero saber qual a prova
         Notas provaSelecionada = null;
@@ -181,9 +181,9 @@ public class Aulas extends Fclt {
             return;
         }
 
-        escreve("Qual a nota do aluno " + alunoSelecionado.getNome() + " ?");
+        escreve("Qual a nota do aluno " + alunoSelecionado.getNome() + "?");
         double notaAplicada = sc.nextDouble();
-        alunoSelecionado.setNota(notaAplicada);
+        provaSelecionada.registraNotas(notaAplicada, alunoSelecionado);
         provaSelecionada.boletim();
         escreve("Deseja cadastrar outra nota?[1]sim[2]não");
         int opc = sc.nextInt();

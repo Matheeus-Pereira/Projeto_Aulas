@@ -7,16 +7,15 @@ public class Notas extends Fclt {
     private String prova;
     private int id;
 
-
     private ArrayList<Aluno> alunos = new ArrayList<>();
-    private double[] valorNotas;
+    private ArrayList<Double> valorNotas = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     private Conexao banco = new Conexao();
 
     public Notas(String prova) {
         banco.InsertProva(prova);
         this.prova = prova;
-        this.id=banco.selectIDprova(prova);
+        this.id = banco.selectIDprova(prova);
     }
 
     public Notas(int id) {
@@ -45,24 +44,21 @@ public class Notas extends Fclt {
         return alunos;
     }
 
+    public void registraNotas(double nota,  Aluno aln) {
+        
+        banco.InsertNotas(this.id, aln.getId(), nota);
 
-    private void registraNotas() {
-        this.valorNotas = new double[alunos.size()];
-        for (int i = 0; i < valorNotas.length; i++) {
-            valorNotas[i] = alunos.get(i).getNota();
-            banco.InsertNotas(this.id, alunos.get(i).getId(), valorNotas[i]);
-        }
     }
 
     public void boletim() {
-        registraNotas();
         banco.ListaNotas(this.id);
     }
 
     public void listarnotas() {
         banco.ListaNotas(this.id);
     }
-    public void VinculaAlunos(int aluno){
+
+    public void VinculaAlunos(int aluno) {
         banco.vinculaAluno(aluno, this.id);
     }
 }
