@@ -1,1 +1,1 @@
-Versão com informações em memória do projeto
+Esta versão utiliza javaFX para gerenciar as interfaces com controladores e arquiivos FXML para controle das funcionalidades

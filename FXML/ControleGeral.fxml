@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="BASELINE_CENTER" prefHeight="324.0" prefWidth="493.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.ControleGeral">
+   <children>
+      <MenuBar accessibleRole="BUTTON" blendMode="MULTIPLY" layoutX="100.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Menu">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#cadAluno" text="Cadastrar Aluno" />
+                  <MenuItem mnemonicParsing="false" onAction="#MNTaluno" text="Manutenção" />
+                  <MenuItem mnemonicParsing="false" onAction="#Cadnota" text="Cadastrar Nota" />
+                  <MenuItem mnemonicParsing="false" onAction="#CadProva" text="Cadastrar Prova" />
+            </items>
+          </Menu>
+        </menus>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </MenuBar>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

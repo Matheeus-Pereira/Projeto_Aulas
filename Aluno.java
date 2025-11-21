@@ -1,27 +1,30 @@
-package projeto_aulas;
+package com.mycompany.mavenproject1;
 
 public class Aluno extends Fclt {
 
     private String nome;
-    private int numero;
+    private int id;
     private double nota;
+    private Conexao banco = new Conexao();
 
     public Aluno(String nome, int numero) {
         this.nome = nome;
-        this.numero = numero + 1;
+        this.id = numero;
     }
 
     public Aluno(String nome) {
         this.nome = nome;
-        this.numero = numero + 1;
+        banco.InsertAluno(nome);
+        this.id = banco.selectNumeroAluno(nome);
+
     }
 
     public double getNota() {
         return nota;
     }
 
-    public void setNota(double nota) {
-        this.nota = nota;
+    public void setNota(int prova) {
+        this.nota = banco.selectNota(prova, this.id);
     }
 
     public String getNome() {
@@ -29,26 +32,26 @@ public class Aluno extends Fclt {
     }
 
     public void setNome(String nome) {
+        banco.nomeAluno(nome, this.id);
         this.nome = nome;
     }
 
-    public int getNumero() {
-        return numero;
+    public int getId() {
+        return this.id;
     }
 
     public void setNumero(int numero) {
-        this.numero = numero;
+        this.id = numero;
     }
 
-    public void apresentar() {
-        escreve("Nome do aluno " + this.nome + " numero do aluno " + this.numero);
+    @Override
+    public String toString() {
+        return nome;
     }
 
-    public void CalculaMedia(double t[]) {
-        double media = 0;
-        for (int i = 0; i < t.length; i++) {
-            media += t[i];
-        }
-        escreve("A media das notas e: " + media / t.length);
+    public void excluiAluno() {
+        escreve("id do aluno:" + this.id);
+        banco.excluiAluno(this.id);
     }
+
 }
